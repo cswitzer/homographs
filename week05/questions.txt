@@ -1,0 +1,1 @@
+1. Do we start in the same directory as the file?
