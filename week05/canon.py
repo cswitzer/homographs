@@ -2,9 +2,6 @@
 # 2. find both files at the file paths based on the strings passed in
 # 3. if files are the same, it's a homograph
 
-from fileinput import filename
-
-
 filename_one = input("Specify the first filename: ")
 filename_two = input("Specify the second filename: ")
 
@@ -26,6 +23,12 @@ def canon(filename_one, filename_two):
 
     fileOneArray = filename_one.split('\\')
     fileTwoArray = filename_two.split('\\')
+
+    if fileOneArray[0] == '':
+        fileOneArray.pop(0)
+    elif fileTwoArray[0] == '':
+        fileTwoArray.pop(0)
+
     file_one_canon = []
     file_two_canon = []
 
@@ -61,10 +64,9 @@ def canonize(original_path, canonized_path):
         if element == ".":
             continue
         elif element == "..":
-            if len(canonized_path) == 0:
+            if len(canonized_path) == 1:
                 continue
             else:
-                # if element is popped, pop it from the dictionary also
                 canonized_path.pop()
         else:
             canonized_path.append(element)
