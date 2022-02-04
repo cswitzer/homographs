@@ -55,6 +55,8 @@ def canon(filename_one, filename_two):
 
 
 def canonize(original_path, canonized_path):
+    print("original path", original_path)
+    print("canonzied path", canonized_path)
     for element in original_path:
         if element == ".":
             continue
@@ -62,13 +64,11 @@ def canonize(original_path, canonized_path):
             if len(canonized_path) == 0:
                 continue
             else:
+                # if element is popped, pop it from the dictionary also
                 canonized_path.pop()
         else:
-            if element in canonized_path:
-                continue
-            else:
-                canonized_path.append(element)
-    print(canonized_path)
+            canonized_path.append(element)
+    print("final path", canonized_path)
 
     return canonized_path
 
