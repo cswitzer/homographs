@@ -64,7 +64,7 @@ def canonize(original_path, canonized_path):
         if element == ".":
             continue
         elif element == "..":
-            if len(canonized_path) == 1:
+            if len(canonized_path) == 0:
                 continue
             else:
                 canonized_path.pop()
