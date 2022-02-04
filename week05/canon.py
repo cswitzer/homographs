@@ -14,8 +14,8 @@ pwd = "Users\\bob"
 def canon(filename_one, filename_two):
     pwdArray = pwd.split('\\')
 
-    #test.txt
-    #..\..\Python\Practice\test.txt
+    # test.txt
+    # ..\..\Python\Practice\test.txt
     f1_root = False
     if filename_one[0] == '\\' or filename_one[0:3] == 'C:\\':
         f1_root = True
@@ -39,11 +39,11 @@ def canon(filename_one, filename_two):
 
     if not f2_root:
         file_two_canon = pwdArray.copy()
-   
+
     if fileOneArray[0] == 'C:':
         fileOneArray.pop(0)
     canonize(fileOneArray, file_one_canon)
-    
+
     if fileTwoArray[0] == 'C:':
         fileTwoArray.pop(0)
     canonize(fileTwoArray, file_two_canon)
@@ -52,7 +52,7 @@ def canon(filename_one, filename_two):
         return True
     else:
         return False
-        
+
 
 def canonize(original_path, canonized_path):
     for element in original_path:
@@ -64,10 +64,14 @@ def canonize(original_path, canonized_path):
             else:
                 canonized_path.pop()
         else:
-            canonized_path.append(element)
+            if element in canonized_path:
+                continue
+            else:
+                canonized_path.append(element)
     print(canonized_path)
 
     return canonized_path
+
 
 if canon(filename_one, filename_two):
     print("These are Homographs.")
