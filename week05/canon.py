@@ -30,8 +30,8 @@ def canon(filename_one, filename_two):
     file_one_canon = copy_pwd_if_root(f1_root, pwdArray)
     file_two_canon = copy_pwd_if_root(f2_root, pwdArray)
 
-    pop_c_drive(fileOneArray)
-    pop_c_drive(fileTwoArray)
+    pop_letter_drive(fileOneArray)
+    pop_letter_drive(fileTwoArray)
 
     canonize(fileOneArray, file_one_canon)
     canonize(fileTwoArray, file_two_canon)
@@ -43,7 +43,7 @@ def canon(filename_one, filename_two):
 
 
 def check_if_root(filename):
-    if filename[0] == '\\' or filename[0:3] == 'C:\\':
+    if filename[0] == '\\' or filename[1:3] == ':\\':
         return True
     else:
         return False
@@ -66,9 +66,10 @@ def filename_match_check(fileOneArray, fileTwoArray):
         return False
 
 
-def pop_c_drive(fileArray):
-    if fileArray[0] == 'C:':
-        fileArray.pop(0)
+def pop_letter_drive(file_array):
+    if file_array[0][1] == ":":
+        file_array[0] = file_array[0][2:]
+        check_first_index(file_array)
 
 
 def canonize(original_path, canonized_path):
