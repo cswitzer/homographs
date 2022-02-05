@@ -20,6 +20,13 @@ class TestCanon(unittest.TestCase):
     def test_canon5(self):
         self.assertTrue(canon('test.txt', '.\\.\\.\\.\\.\\.\\test.txt'))
 
+    def test_canon6(self):
+        self.assertTrue(
+            canon('..\\..\\..\\Users\\bob\\jan\\..\\test.txt', 'test.txt'))
+
+    def test_canon7(self):
+        self.assertTrue('games\\bin\\..\\..\\..\\test.txt', 'test.txt')
+
 
 if __name__ == '__main__':
     unittest.main()
