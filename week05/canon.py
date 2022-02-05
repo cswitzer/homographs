@@ -25,46 +25,21 @@ def canon(filename_one, filename_two):
     file_two_canon = []
 
     # if filenames aren't the same, they are not homographs
-    if fileOneArray[-1] != fileTwoArray[-1]:
-        print("not a homograph")
-        return False
+    filename_match_check(fileOneArray, fileTwoArray)
 
-    if not f1_root:
-        file_one_canon = pwdArray.copy()
+    file_one_canon = copy_pwd_if_root(f1_root, pwdArray)
+    file_two_canon = copy_pwd_if_root(f2_root, pwdArray)
 
-    if not f2_root:
-        file_two_canon = pwdArray.copy()
+    pop_c_drive(fileOneArray)
+    pop_c_drive(fileTwoArray)
 
-    if fileOneArray[0] == 'C:':
-        fileOneArray.pop(0)
     canonize(fileOneArray, file_one_canon)
-
-    if fileTwoArray[0] == 'C:':
-        fileTwoArray.pop(0)
     canonize(fileTwoArray, file_two_canon)
 
     if file_one_canon == file_two_canon:
         return True
     else:
         return False
-
-
-def canonize(original_path, canonized_path):
-    #print("original path", original_path)
-    #print("canonzied path", canonized_path)
-    for element in original_path:
-        if element == ".":
-            continue
-        elif element == "..":
-            if len(canonized_path) == 0:
-                continue
-            else:
-                canonized_path.pop()
-        else:
-            canonized_path.append(element)
-    #print("final path", canonized_path)
-
-    return canonized_path
 
 
 def check_if_root(filename):
@@ -77,6 +52,41 @@ def check_if_root(filename):
 def check_first_index(fileArray):
     if fileArray[0] == '':
         fileArray.pop(0)
+
+
+def copy_pwd_if_root(file_root, pwdArray):
+    if not file_root:
+        return pwdArray.copy()
+    else:
+        return []
+
+
+def filename_match_check(fileOneArray, fileTwoArray):
+    if fileOneArray[-1] != fileTwoArray[-1]:
+        return False
+
+
+def pop_c_drive(fileArray):
+    if fileArray[0] == 'C:':
+        fileArray.pop(0)
+
+
+def canonize(original_path, canonized_path):
+    # print("original path", original_path)
+    # print("canonzied path", canonized_path)
+    for element in original_path:
+        if element == ".":
+            continue
+        elif element == "..":
+            if len(canonized_path) == 0:
+                continue
+            else:
+                canonized_path.pop()
+        else:
+            canonized_path.append(element)
+    # print("final path", canonized_path)
+
+    return canonized_path
 
 
 if canon(filename_one, filename_two):
