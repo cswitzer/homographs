@@ -11,23 +11,15 @@ pwd = "Users\\bob"
 def canon(filename_one, filename_two):
     pwdArray = pwd.split('\\')
 
-    # test.txt
-    # ..\..\Python\Practice\test.txt
-    f1_root = False
-    if filename_one[0] == '\\' or filename_one[0:3] == 'C:\\':
-        f1_root = True
-
-    f2_root = False
-    if filename_two[0] == '\\' or filename_two[0:3] == 'C:\\':
-        f2_root = True
+    f1_root = check_if_root(filename_one)
+    f2_root = check_if_root(filename_two)
 
     fileOneArray = filename_one.split('\\')
     fileTwoArray = filename_two.split('\\')
 
-    if fileOneArray[0] == '':
-        fileOneArray.pop(0)
-    elif fileTwoArray[0] == '':
-        fileTwoArray.pop(0)
+    # Splitting \Users\bob\ will place '' at front of array, so delete that
+    check_first_index(fileOneArray)
+    check_first_index(fileTwoArray)
 
     file_one_canon = []
     file_two_canon = []
@@ -58,8 +50,8 @@ def canon(filename_one, filename_two):
 
 
 def canonize(original_path, canonized_path):
-    print("original path", original_path)
-    print("canonzied path", canonized_path)
+    #print("original path", original_path)
+    #print("canonzied path", canonized_path)
     for element in original_path:
         if element == ".":
             continue
@@ -70,9 +62,21 @@ def canonize(original_path, canonized_path):
                 canonized_path.pop()
         else:
             canonized_path.append(element)
-    print("final path", canonized_path)
+    #print("final path", canonized_path)
 
     return canonized_path
+
+
+def check_if_root(filename):
+    if filename[0] == '\\' or filename[0:3] == 'C:\\':
+        return True
+    else:
+        return False
+
+
+def check_first_index(fileArray):
+    if fileArray[0] == '':
+        fileArray.pop(0)
 
 
 if canon(filename_one, filename_two):
